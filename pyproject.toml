@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lg-heatpump-modbus"
+version = "0.0.0"
+description = "Read and control LG heat pumps (Therma V and siblings) over Modbus."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+authors = [{ name = "lg-heatpump-modbus contributors" }]
+keywords = ["modbus", "lg", "therma-v", "heat-pump", "heatpump", "hvac"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Home Automation",
+    "Typing :: Typed",
+]
+# Protocol + the device-modelling framework (modbus_connection.model). The caller
+# injects a ModbusUnit built from whichever backend they choose.
+dependencies = [
+    "modbus-connection>=4.8.1,<5",
+    "tmodbus==0.6.2",
+]
+
+[project.optional-dependencies]
+# Concrete backend for the script/query.py CLI (pip install lg-heatpump-modbus[cli]).
+cli = ["modbus-connection[tmodbus]>=4.8.1,<5"]
+
+[project.urls]
+Homepage = "https://github.com/G-nn-r/lg-heatpump-modbus"
+Issues = "https://github.com/G-nn-r/lg-heatpump-modbus/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    # Tests run against the in-memory mock backend that ships with
+    # modbus-connection (its pytest plugin is auto-registered); no real backend
+    # or server is needed.
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lg_heatpump_modbus"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D100", "D103"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
