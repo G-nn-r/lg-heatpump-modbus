@@ -1,0 +1,85 @@
+"""The bundled query script parses its arguments and prints every sub-system."""
+
+from __future__ import annotations
+
+import importlib.util
+import sys
+from pathlib import Path
+from types import ModuleType
+
+import pytest
+from modbus_connection.mock import MockModbusUnit
+
+from lg_heatpump_modbus import LgHeatPump
+
+SCRIPT = Path(__file__).resolve().parents[1] / "script" / "query.py"
+
+
+def _load() -> ModuleType:
+    """Import script/query.py as a module, without installing it."""
+    spec = importlib.util.spec_from_file_location("lg_query", SCRIPT)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.fixture(scope="module")
+def query() -> ModuleType:
+    """Return the query script, imported once."""
+    return _load()
+
+
+def test_the_script_exists() -> None:
+    assert SCRIPT.is_file()
+
+
+def test_defaults(query: ModuleType) -> None:
+    args = query._parse_args(["192.168.1.50"])
+
+    assert args.unit == 1
+    assert args.model == "therma_v"
+
+
+def test_unit_and_model_can_be_chosen(query: ModuleType) -> None:
+    args = query._parse_args(
+        ["192.168.1.50", "--unit", "3", "--model", "therma_v_heating_only"]
+    )
+
+    assert args.unit == 3
+    assert args.model == "therma_v_heating_only"
+
+
+def test_an_unknown_model_is_rejected(query: ModuleType) -> None:
+    with pytest.raises(SystemExit):
+        query._parse_args(["192.168.1.50", "--model", "therma_x"])
+
+
+def test_sections_cover_every_sub_system(query: ModuleType, pump: LgHeatPump) -> None:
+    printed = {attribute for _, attribute in query.SECTIONS}
+
+    assert printed == set(pump.component_names)
+
+
+async def test_printing_a_read_heat_pump(
+    query: ModuleType,
+    pump: LgHeatPump,
+    unit: MockModbusUnit,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    await pump.async_update()
+
+    query._print(pump)
+    query._print_derived(pump)
+
+    out = capsys.readouterr().out
+    assert "Measurements" in out
+    assert "outdoor_temperature" in out
+    assert "-4.2" in out
+    assert "3720" in out  # derived compressor speed
+
+
+def test_absent_values_print_as_a_dash(query: ModuleType) -> None:
+    assert query._fmt(None) == "-"
+    assert query._fmt(42) == "42"
