@@ -13,6 +13,7 @@ from enum import IntEnum
 class OperationMode(IntEnum):
     """Requested operation mode (holding register 0)."""
 
+    # TODO verify
     COOL = 0
     AUTO = 3
     HEAT = 4
@@ -21,6 +22,7 @@ class OperationMode(IntEnum):
 class ControlMethod(IntEnum):
     """Which temperature the controller regulates on (holding register 1)."""
 
+    # TODO verify
     WATER_OUTLET = 0
     WATER_INLET = 1
     ROOM_AIR = 2
@@ -29,6 +31,7 @@ class ControlMethod(IntEnum):
 class EnergyState(IntEnum):
     """Smart-grid energy state (input register 11 / holding register 9)."""
 
+    # TODO verify
     NOT_USED = 0
     FORCED_OFF = 1
     NORMAL = 2
@@ -43,5 +46,6 @@ class EnergyState(IntEnum):
 class Circuit(IntEnum):
     """The two water circuits a heat pump can drive."""
 
+    # TODO verify
     CIRCUIT_1 = 1
     CIRCUIT_2 = 2
