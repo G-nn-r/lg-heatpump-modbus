@@ -16,6 +16,7 @@ class DeviceInformation(LgComponent):
     register_space = "input"
     register_ranges = ((PRODUCT_INFO_ADDRESS, PRODUCT_INFO_ADDRESS),)
 
+    # TODO verify
     product_info = raw_register(
         PRODUCT_INFO_ADDRESS, description="Packed product information word"
     )

@@ -27,46 +27,55 @@ class Sensors(LgComponent):
     register_space = "input"
     register_ranges = ((0, 24),)
 
+    # TODO verify
     error_code = integer(
         0, signed=False, description="Active error code; 0 when no error is active"
     )
     """Active error code reported by the outdoor unit."""
 
+    # TODO verify
     odu_operation_cycle = integer(
         1, signed=False, description="Outdoor-unit operation cycle"
     )
     """Raw outdoor-unit operation cycle code."""
 
+    # TODO verify
     water_inlet_temperature = temperature(
         2, description="Water temperature entering the heat pump"
     )
     """Water inlet temperature."""
 
+    # TODO verify
     water_outlet_temperature = temperature(
         3, description="Water temperature leaving the heat pump"
     )
     """Water outlet temperature."""
 
+    # TODO verify
     backup_heater_outlet_temperature = temperature(
         4, description="Water temperature leaving the backup heater"
     )
     """Backup heater outlet temperature."""
 
+    # TODO verify
     dhw_tank_temperature = temperature(
         5, description="Domestic hot water tank temperature"
     )
     """Domestic hot water tank temperature."""
 
+    # TODO verify
     solar_collector_temperature = temperature(
         6, description="Solar collector temperature"
     )
     """Solar collector temperature."""
 
+    # TODO verify
     room_air_temperature_circuit_1 = temperature(
         7, description="Room air temperature measured for circuit 1"
     )
     """Room air temperature of circuit 1."""
 
+    # TODO verify
     water_flow_rate = gauge(
         8,
         0.1,
@@ -77,59 +86,71 @@ class Sensors(LgComponent):
     )
     """Water flow rate."""
 
+    # TODO verify
     water_outlet_temperature_circuit_2 = temperature(
         9, description="Water temperature leaving circuit 2"
     )
     """Water outlet temperature of circuit 2."""
 
+    # TODO verify
     room_air_temperature_circuit_2 = temperature(
         10, description="Room air temperature measured for circuit 2"
     )
     """Room air temperature of circuit 2."""
 
+    # TODO verify
     energy_state = enum_value(
         11, EnergyState, description="Smart-grid energy state currently in effect"
     )
     """Smart-grid energy state currently in effect."""
 
+    # TODO verify
     outdoor_temperature = temperature(12, description="Outdoor air temperature")
     """Outdoor air temperature."""
 
+    # TODO verify
     liquid_pipe_temperature = temperature(
         16, scale=1, digits=0, description="Refrigerant liquid pipe temperature"
     )
     """Refrigerant liquid pipe temperature."""
 
+    # TODO verify
     suction_temperature = temperature(
         18, scale=1, digits=0, description="Compressor suction temperature"
     )
     """Compressor suction temperature."""
 
+    # TODO verify
     discharge_temperature = temperature(
         19, scale=1, digits=0, description="Compressor discharge temperature"
     )
     """Compressor discharge temperature."""
 
+    # TODO verify
     evaporator_inlet_temperature = temperature(
         20, description="Refrigerant temperature entering the evaporator"
     )
     """Evaporator inlet temperature."""
 
+    # TODO verify
     evaporator_outlet_temperature = temperature(
         21, description="Refrigerant temperature leaving the evaporator"
     )
     """Evaporator outlet temperature."""
 
+    # TODO verify
     high_pressure = integer(
         22, signed=False, unit=BAR, description="Condenser (high side) pressure"
     )
     """Condenser (high side) pressure."""
 
+    # TODO verify
     low_pressure = integer(
         23, signed=False, unit=BAR, description="Evaporator (low side) pressure"
     )
     """Evaporator (low side) pressure."""
 
+    # TODO verify
     compressor_frequency = integer(
         24, signed=False, unit=HERTZ, description="Compressor rotation frequency"
     )

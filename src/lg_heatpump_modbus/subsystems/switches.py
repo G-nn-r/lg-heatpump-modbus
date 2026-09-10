@@ -10,15 +10,19 @@ class Switches(LgComponent):
 
     coil_ranges = ((0, 3),)
 
+    # TODO verify
     power = coil(0, writable=True, description="Heat pump on/off")
     """Whether the heat pump is switched on."""
 
+    # TODO verify
     dhw = coil(1, writable=True, description="Domestic hot water production on/off")
     """Whether domestic hot water production is enabled."""
 
+    # TODO verify
     silent_mode = coil(2, writable=True, description="Silent (night) mode on/off")
     """Whether silent mode is enabled."""
 
+    # TODO verify
     dhw_disinfection = coil(
         3, writable=True, description="Domestic hot water disinfection cycle on/off"
     )

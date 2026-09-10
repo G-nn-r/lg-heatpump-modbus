@@ -35,6 +35,7 @@ class Controls(LgComponent):
     register_space = "holding"
     register_ranges = ((0, 9),)
 
+    # TODO verify
     operation_mode = enum_value(
         0,
         OperationMode,
@@ -43,6 +44,7 @@ class Controls(LgComponent):
     )
     """Requested operation mode."""
 
+    # TODO verify
     control_method = enum_value(
         1,
         ControlMethod,
@@ -51,6 +53,7 @@ class Controls(LgComponent):
     )
     """Temperature the controller regulates on."""
 
+    # TODO verify
     target_temperature_circuit_1 = temperature(
         2,
         writable=True,
@@ -60,6 +63,7 @@ class Controls(LgComponent):
     )
     """Water target temperature of circuit 1."""
 
+    # TODO verify
     room_air_setpoint_circuit_1 = temperature(
         3,
         writable=True,
@@ -69,6 +73,7 @@ class Controls(LgComponent):
     )
     """Room air target temperature of circuit 1."""
 
+    # TODO verify
     shift_in_auto_mode_circuit_1 = integer(
         4,
         signed=True,
@@ -80,6 +85,7 @@ class Controls(LgComponent):
     )
     """Weather-compensation setpoint shift of circuit 1."""
 
+    # TODO verify
     target_temperature_circuit_2 = temperature(
         5,
         writable=True,
@@ -89,6 +95,7 @@ class Controls(LgComponent):
     )
     """Water target temperature of circuit 2."""
 
+    # TODO verify
     room_air_setpoint_circuit_2 = temperature(
         6,
         writable=True,
@@ -98,6 +105,7 @@ class Controls(LgComponent):
     )
     """Room air target temperature of circuit 2."""
 
+    # TODO verify
     shift_in_auto_mode_circuit_2 = integer(
         7,
         signed=True,
@@ -109,6 +117,7 @@ class Controls(LgComponent):
     )
     """Weather-compensation setpoint shift of circuit 2."""
 
+    # TODO verify
     dhw_target_temperature = temperature(
         8,
         writable=True,
@@ -118,6 +127,7 @@ class Controls(LgComponent):
     )
     """Domestic hot water target temperature."""
 
+    # TODO verify
     energy_state = enum_value(
         9, EnergyState, description="Smart-grid energy state as configured"
     )
