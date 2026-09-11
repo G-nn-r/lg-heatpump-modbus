@@ -32,15 +32,15 @@ class EnergyState(IntEnum):
     """Smart-grid energy state (input register 11 / holding register 9)."""
 
     # TODO verify
-    NOT_USED = 0
-    FORCED_OFF = 1
-    NORMAL = 2
-    ON_RECOMMENDATION = 3
-    ON_COMMAND = 4
-    ON_COMMAND_STEP_2 = 5
-    ON_RECOMMENDATION_STEP_1 = 6
-    ENERGY_SAVING = 7
-    SUPER_ENERGY_SAVING = 8
+    NOT_USED = 0                  # tested by G-nn-r
+    FORCED_OFF = 1                # not tested
+    NORMAL = 2                    # not tested
+    ON_RECOMMENDATION = 3         # not tested
+    ON_COMMAND = 4                # not tested
+    ON_COMMAND_STEP_2 = 5         # not tested
+    ON_RECOMMENDATION_STEP_1 = 6  # not tested
+    ENERGY_SAVING = 7             # not tested
+    SUPER_ENERGY_SAVING = 8       # not tested
 
 
 class Circuit(IntEnum):

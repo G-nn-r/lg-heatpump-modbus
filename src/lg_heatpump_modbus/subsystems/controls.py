@@ -117,7 +117,7 @@ class Controls(LgComponent):
     )
     """Weather-compensation setpoint shift of circuit 2."""
 
-    # TODO verify
+    # verified by G-nn-r: 45, 48, 50, 60 LG ThinQ: Warmwasser -> Heizwasser -> Soll-Heißwassertemperatur
     dhw_target_temperature = temperature(
         8,
         writable=True,

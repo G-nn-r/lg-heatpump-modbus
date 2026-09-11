@@ -58,6 +58,7 @@ class Sensors(LgComponent):
     """Backup heater outlet temperature."""
 
     # TODO verify
+    # LG ThinQ: Warmwasser -> Heißwassertemperatur
     dhw_tank_temperature = temperature(
         5, description="Domestic hot water tank temperature"
     )

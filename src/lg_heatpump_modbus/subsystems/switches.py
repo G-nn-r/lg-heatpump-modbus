@@ -11,10 +11,12 @@ class Switches(LgComponent):
     coil_ranges = ((0, 3),)
 
     # TODO verify
+    # verified by G-nn-r: off/False/0
+    # TODO decide whether refactoring should be applied to avoid confusion with power in watts
     power = coil(0, writable=True, description="Heat pump on/off")
     """Whether the heat pump is switched on."""
 
-    # TODO verify
+    # verified by G-nn-r: on/True/1 and off/False/0
     dhw = coil(1, writable=True, description="Domestic hot water production on/off")
     """Whether domestic hot water production is enabled."""
 
@@ -23,6 +25,7 @@ class Switches(LgComponent):
     """Whether silent mode is enabled."""
 
     # TODO verify
+    # verified by G-nn-r: off/False/0
     dhw_disinfection = coil(
         3, writable=True, description="Domestic hot water disinfection cycle on/off"
     )
