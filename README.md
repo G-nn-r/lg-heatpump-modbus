@@ -80,7 +80,7 @@ asyncio.run(main())
 
 `async_update()` fans out to each sub-system, and each sub-system reads only its
 own registers in as few Modbus round-trips as the map allows: the whole device
-is five block reads. Poll the two halves at different rates if you prefer:
+is seven block reads. Poll the two halves at different rates if you prefer:
 
 ```python
 await pump.async_update_readings()  # what the heat pump measures

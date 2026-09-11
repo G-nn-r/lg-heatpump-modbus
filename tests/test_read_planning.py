@@ -12,7 +12,7 @@ from lg_heatpump_modbus import (
 )
 
 
-async def test_full_poll_is_five_block_reads(
+async def test_full_poll_is_seven_block_reads(
     pump: LgHeatPump, unit: MockModbusUnit
 ) -> None:
     await pump.async_update()
@@ -22,7 +22,9 @@ async def test_full_poll_is_five_block_reads(
     ]
     assert blocks == [
         ("input", 9998, 1),  # identity, read once at setup
-        ("input", 0, 25),  # every measurement
+        ("input", 0, 13),  # the first contiguous measurement block
+        ("input", 16, 1),  # the isolated liquid-pipe reading
+        ("input", 18, 7),  # the remaining contiguous diagnostics block
         ("discrete_input", 0, 17),  # every status flag
         ("holding", 0, 10),  # every setpoint
         ("coil", 0, 4),  # every command

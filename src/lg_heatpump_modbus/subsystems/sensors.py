@@ -25,7 +25,7 @@ class Sensors(LgComponent):
     """Temperatures, pressures and running state, read in one block."""
 
     register_space = "input"
-    register_ranges = ((0, 24),)
+    register_ranges = ((0, 12), (16, 16), (18, 24))
 
     # TODO verify
     error_code = integer(
