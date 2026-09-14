@@ -1,8 +1,7 @@
 """Enumerated register values.
 
-Only codes that the validated register map documents are declared. An
-undocumented code decodes to ``None`` rather than being guessed at, so a device
-that reports something unexpected is visible instead of silently mislabeled.
+Only codes that the validated register map documents are declared. An undocumented code decodes to ``None`` rather than
+being guessed at, so a device that reports something unexpected is visible instead of silently mislabeled.
 """
 
 from __future__ import annotations
@@ -11,25 +10,34 @@ from enum import IntEnum
 
 
 class OperationMode(IntEnum):
-    """Requested operation mode (holding register 0)."""
+    """
+    Requested operation mode (holding register 0).
+    Used in controls.py in Controls.operation_mode
+    """
 
     # TODO verify
-    COOL = 0
-    AUTO = 3
-    HEAT = 4
+    COOL = 0  # not tested
+    AUTO = 3  # tested by G-nn-r
+    HEAT = 4  # not tested
 
 
 class ControlMethod(IntEnum):
-    """Which temperature the controller regulates on (holding register 1)."""
+    """
+    Which temperature the controller regulates on (holding register 1).
+    Used in controls.py in Controls.control_method
+    """
 
     # TODO verify
-    WATER_OUTLET = 0
-    WATER_INLET = 1
-    ROOM_AIR = 2
+    WATER_OUTLET = 0  # tested by G-nn-r
+    WATER_INLET = 1   # not tested
+    ROOM_AIR = 2      # not tested
 
 
 class EnergyState(IntEnum):
-    """Smart-grid energy state (input register 11 / holding register 9)."""
+    """
+    Smart-grid energy state (input register 11 / holding register 9).
+    Used in controls.py in Controls.energy_state
+    """
 
     # TODO verify
     NOT_USED = 0                  # tested by G-nn-r
@@ -47,5 +55,6 @@ class Circuit(IntEnum):
     """The two water circuits a heat pump can drive."""
 
     # TODO verify
+    # TODO is this even used anywhere?
     CIRCUIT_1 = 1
     CIRCUIT_2 = 2

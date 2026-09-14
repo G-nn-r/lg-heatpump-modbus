@@ -6,6 +6,8 @@ from ..data_model import LgComponent, raw_register
 
 MANUFACTURER = "LG"
 
+# TODO is any information from here helpful? https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/LG-Register-documentation
+
 #: Input register holding the packed product information word.
 PRODUCT_INFO_ADDRESS = 9998
 
