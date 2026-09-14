@@ -241,11 +241,13 @@ and raise `AttributeError` if written.
 
 `script/query.py` connects to a heat pump, reads it once and prints every
 value. It is the quickest way to check an installation with no application
-around it:
+around it. Add `--json-dir <folder>` to write a JSON snapshot for later
+analysis; omit it to keep the script purely terminal-based:
 
 ```bash
 python script/query.py 192.168.1.50 --unit 1
 python script/query.py /dev/ttyUSB0 --transport serial --unit 1 --baudrate 9600
+python script/query.py 192.168.1.50 --unit 1 --json-dir ./query-dumps
 python script/query.py --help
 ```
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 from types import ModuleType
@@ -40,6 +41,7 @@ def test_defaults(query: ModuleType) -> None:
 
     assert args.unit == 1
     assert args.model == "therma_v"
+    assert args.json_dir is None
 
 
 def test_unit_and_model_can_be_chosen(query: ModuleType) -> None:
@@ -49,6 +51,13 @@ def test_unit_and_model_can_be_chosen(query: ModuleType) -> None:
 
     assert args.unit == 3
     assert args.model == "therma_v_heating_only"
+    assert args.json_dir is None
+
+
+def test_json_dir_can_be_chosen(query: ModuleType, tmp_path: Path) -> None:
+    args = query._parse_args(["192.168.1.50", "--json-dir", str(tmp_path)])
+
+    assert args.json_dir == tmp_path
 
 
 def test_an_unknown_model_is_rejected(query: ModuleType) -> None:
@@ -78,6 +87,31 @@ async def test_printing_a_read_heat_pump(
     assert "outdoor_temperature" in out
     assert "-4.2" in out
     assert "3720" in out  # derived compressor speed
+
+
+async def test_json_dump_snapshot(
+    query: ModuleType,
+    pump: LgHeatPump,
+    unit: MockModbusUnit,
+    tmp_path: Path,
+) -> None:
+    await pump.async_update()
+
+    args = query._parse_args(["192.168.1.50", "--json-dir", str(tmp_path)])
+    snapshot = query._snapshot(
+        pump,
+        elapsed_ms=123.4,
+        modbus_reads=7,
+        failed={},
+        args=args,
+    )
+    path = query._dump_json_snapshot(args, snapshot)
+
+    assert path is not None and path.parent == tmp_path
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    assert payload["model"] == "therma_v"
+    assert payload["components"]["sensors"]["outdoor_temperature"] == -4.2
+    assert payload["derived"]["compressor_speed"] == 3720
 
 
 def test_absent_values_print_as_a_dash(query: ModuleType) -> None:
