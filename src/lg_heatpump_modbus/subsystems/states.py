@@ -10,18 +10,15 @@ class States(LgComponent):
 
     discrete_ranges = ((0, 16),)
 
-    # TODO verify
-    # verified by G-nn-r: so far only on/True/1
+    # verified by G-nn-r: off/False/0 and on/True/1
     water_flow = discrete_input(0, description="Water flow detected")
     """Whether water flow is detected."""
 
-    # TODO verify
-    # verified by G-nn-r: so far only on/True/1
+    # verified by G-nn-r: off/False/0 and on/True/1
     water_pump = discrete_input(1, description="Internal water pump running")
     """Whether the internal water pump is running."""
 
-    # TODO verify
-    # verified by G-nn-r: so far only on/True/1
+    # verified by G-nn-r: off/False/0 and on/True/1
     external_water_pump = discrete_input(2, description="External water pump running")
     """Whether the external water pump is running."""
 
@@ -98,8 +95,8 @@ class States(LgComponent):
     )
     """Whether emergency operation is available for domestic hot water."""
 
-    # TODO verify
-    # verified by G-nn-r: so far always on/True/1 but so far only tested with power=True. Is this about running or just presence?
+    # verified by G-nn-r: off/False/0 and on/True/1
+    # TODO adjust comment: Is this about running or just presence?
     mixing_pump = discrete_input(16, description="Mixing pump running")
     """Whether the mixing pump is running."""
 
