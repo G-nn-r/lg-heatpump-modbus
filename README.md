@@ -155,7 +155,7 @@ across the heat exchanger.
 
 | Address | Datapoint |
 | ---: | :--- |
-| 0 | `power` |
+| 0 | `heating_circuit` |
 | 1 | `dhw` |
 | 2 | `silent_mode` |
 | 3 | `dhw_disinfection` |

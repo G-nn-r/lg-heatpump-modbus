@@ -94,7 +94,7 @@ async def test_control_enums(pump: LgHeatPump) -> None:
 async def test_switch_values(pump: LgHeatPump) -> None:
     await pump.switches.async_update()
 
-    assert pump.switches.power is True
+    assert pump.switches.heating_circuit is True
     assert pump.switches.dhw is True
     assert pump.switches.silent_mode is False
     assert pump.switches.dhw_disinfection is False

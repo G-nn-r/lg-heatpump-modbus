@@ -150,7 +150,7 @@ async def test_writable_datapoints_are_declared(pump: LgHeatPump) -> None:
         "dhw_target_temperature",
     )
     assert pump.switches.writable_datapoints == (
-        "power",
+        "heating_circuit",
         "dhw",
         "silent_mode",
         "dhw_disinfection",
