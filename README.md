@@ -9,6 +9,12 @@
 for reading and controlling **LG heat pumps** — the Therma V family and the
 siblings that share its Modbus register map — over Modbus.
 
+> ### DISCLAIMER
+> 
+> This library is in early development. It is not yet feature-complete, bugs are expected! 
+> 
+> Anyone with a real device is encouraged to test it and report issues. See section [Contributing](#contributing) for a quick way to check your installation.
+
 ## Purpose and scope
 
 The library is meant for operational monitoring and day-to-day control of a
@@ -32,6 +38,21 @@ The library:
 * **does not create or own the Modbus transport.** Applications provide a
   [`modbus_connection.ModbusUnit`](https://github.com/home-assistant-libs/modbus-connection)
   and may use any backend `modbus-connection` supports (tmodbus, pymodbus, …).
+
+## Prerequisites
+
+Development or testing this library can be done **without a real heat pump**, using the in-memory mock backend that ships with `modbus-connection`. The mock backend simulates a heat pump and responds to reads and writes. 
+
+Before you can use the library **with a real heatpump**, you must have a working Modbus connection to the heat pump. 
+
+This takes two steps: 
+
+1. Get and connect a compatible Modbus interface to the heat pump. At this point, the Waveshare RS485 to ETH Adapter is known to work and well-tested.
+2. Configure the heat pump to enable Modbus communication.
+
+Both steps are explained in more detail [here](https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/2.-How-to-install), you can skip the middle *Homeassistant* section. 
+
+> TODO: Explain setup in more detail
 
 ## Installation
 
@@ -237,7 +258,40 @@ A value outside the documented range raises `LgValueValidationError` before
 anything reaches the wire. Input registers and discrete inputs are read-only
 and raise `AttributeError` if written.
 
-## Querying a real device
+## Contributing
+
+Any contribution is welcome. Most valuable is testing against a real device.
+
+#### 1. Prepare your hardware
+
+Following the instructions in [Prerequisites](#prerequisites), connect a Modbus interface to your heat pump and enable Modbus communication.
+
+#### 2. Set up the library (pre-PyPI stage)
+
+Create a virtual Python environment and install `modbus-connection`, preferably with `tmodbus`:
+
+```bash
+python -m venv venv_modbus
+pip install "modbus-connection[tmodbus]"
+```
+
+#### 3a. Run the query script and dump the outputs
+
+Set up the library and run `script/query.py` against your heat pump. Parameters usually like this:
+
+```
+192.168.0.XXX --port 502 --unit 1 --json-dir C:\tmp\lg_json_dumps
+```
+
+Directly report the JSON output, as well as any unexpected values or errors.
+
+Occasional `Response timeout`s are expected when the heat pump is still connected to another Modbus device (e.g., legacy Home Assistant integration). If you see a timeout, wait a few seconds and try again.
+
+#### 3b. Use the library from a Python interpreter
+
+Play around with the controls, read the sensors, change controls and switches. Report any findings, unexpected values, or errors. A JSON file from the query script (see section beforehand) is also very valuable for debugging.
+
+### Querying a real device
 
 `script/query.py` connects to a heat pump, reads it once and prints every
 value. It is the quickest way to check an installation with no application
@@ -251,7 +305,7 @@ python script/query.py 192.168.1.50 --unit 1 --json-dir ./query-dumps
 python script/query.py --help
 ```
 
-## Development
+### Development
 
 ```bash
 script/run_checks.sh     # format check, lint, compile, test, build
