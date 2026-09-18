@@ -36,8 +36,7 @@ class States(LgComponent):
     dhw_heating = discrete_input(5, description="Heating domestic hot water")
     """Whether domestic hot water (DHW) is being heated."""
 
-    # TODO verify
-    # verified by G-nn-r: so far only off/False/0, this can be triggered from HA or via time schedule (Fridays 3pm?)
+    # verified by G-nn-r: off/False/0 and on/True/1
     dhw_disinfection = discrete_input(
         6, description="Domestic hot water disinfection cycle running"
     )

@@ -39,7 +39,7 @@ class Switches(LgComponent):
     """
 
     # TODO verify
-    # verified by G-nn-r: off/False/0
+    # verified by G-nn-r: off/False/0 and on/True/1, and switching on. Switching off did not work - intended behavior to complete disinfection cycle?
     dhw_disinfection = coil(
         3, writable=True, description="Domestic hot water disinfection cycle on/off"
     )
