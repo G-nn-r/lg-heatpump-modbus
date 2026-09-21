@@ -57,7 +57,7 @@ async def test_write_control_method(pump: LgHeatPump, unit: MockModbusUnit) -> N
 @pytest.mark.parametrize(
     ("method", "address"),
     [
-        ("set_power", 0),
+        ("set_heating_circuit", 0),
         ("set_dhw", 1),
         ("set_silent_mode", 2),
         ("set_dhw_disinfection", 3),

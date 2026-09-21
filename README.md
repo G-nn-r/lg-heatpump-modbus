@@ -251,7 +251,7 @@ name or through the named helpers:
 ```python
 await pump.controls.write("dhw_target_temperature", 48.0)
 await pump.controls.set_dhw_target_temperature(48.0)
-await pump.switches.set_power(True)
+await pump.switches.set_heating_circuit(True)
 ```
 
 A value outside the documented range raises `LgValueValidationError` before
