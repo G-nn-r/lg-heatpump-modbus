@@ -5,7 +5,13 @@ from __future__ import annotations
 import pytest
 from modbus_connection.mock import MockModbusUnit
 
-from lg_heatpump_modbus import ControlMethod, EnergyState, LgHeatPump, OperationMode
+from lg_heatpump_modbus import (
+    ControlMethod,
+    EnergyState,
+    LgHeatPump,
+    OduOperationCycle,
+    OperationMode,
+)
 
 
 async def test_update_refreshes_every_component(pump: LgHeatPump) -> None:
@@ -50,6 +56,7 @@ async def test_sensor_values(pump: LgHeatPump, attribute: str, expected: float) 
 async def test_sensor_enum_and_derived_values(pump: LgHeatPump) -> None:
     await pump.sensors.async_update()
 
+    assert pump.sensors.odu_operation_cycle is OduOperationCycle.HEATING
     assert pump.sensors.energy_state is EnergyState.NORMAL
     assert pump.sensors.compressor_speed == 62 * 60
     assert pump.sensors.water_temperature_difference == 3.7

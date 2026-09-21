@@ -180,3 +180,5 @@ class LgHeatPump:
             for space, values in read.items():
                 raw.setdefault(space, {}).update(values)
         return raw
+
+    # TODO add "sync now" button in HA
