@@ -53,9 +53,9 @@ class Controls(LgComponent):
         1,
         ControlMethod,
         writable=True,
-        description="Temperature the controller regulates on",
+        description="Temperature the controller of the heating circuit regulates on",
     )
-    """Temperature the controller regulates on."""
+    """Temperature the controller of the heating circuit regulates on."""
 
     # verified by G-nn-r: 20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0, 30.0
     target_temperature_circuit_1 = temperature(
@@ -123,7 +123,7 @@ class Controls(LgComponent):
     )
     """Weather-compensation setpoint shift of circuit 2."""
 
-    # verified by G-nn-r: 45, 48, 50, 60 LG ThinQ: Warmwasser -> Heizwasser -> Soll-Heißwassertemperatur
+    # verified by G-nn-r: 43, 45, 48, 50, 60 LG ThinQ: Warmwasser -> Heizwasser -> Soll-Heißwassertemperatur
     dhw_target_temperature = temperature(
         8,
         writable=True,
