@@ -305,6 +305,16 @@ python script/query.py 192.168.1.50 --unit 1 --json-dir ./query-dumps
 python script/query.py --help
 ```
 
+After collecting a few JSON snapshots, you can convert them into a single CSV table:
+
+```bash
+python script/json_to_csv.py --input-dir ./query-dumps --output ./query-dumps.csv
+```
+
+The CSV contains one row per snapshot and one column per flattened datapoint,
+with names like `components.sensors.outdoor_temperature` and
+`derived.compressor_speed`.
+
 ### Development
 
 ```bash
