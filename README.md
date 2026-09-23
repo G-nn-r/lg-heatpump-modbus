@@ -136,8 +136,23 @@ Modbus is defined to have four kinds of tables:
 | Holding        | 16-bit    | 0x03       | 0x06 / 0x10   |
 | Input          | 16-bit    | 0x04       | no, read-only |
 
-Addresses are **protocol addresses**: input register 1 of the manufacturer
+Addresses used in this library are the actual **protocol addresses**. 
+The manuals of the manufacturer have an offset of one: Input register 1 of the manufacturer
 documentation is address 0 here.
+
+The manuals give human-friendly addresses with this scheme: `XYYYY`
+
+- `X` is the concerning the address space, `X+1` equals the function code.
+- `YYYY` is the address with an offset of `+1` to the protocol address, so the actual protocol address is `YYYY-1`.
+
+For instance, when the manual states 10007, this means that:
+- `1`: FC02, discrete input
+- `0008`: Modbus address `7` (`=8-1`)
+
+This is the Silent Mode sensor, see `states.py`:
+```python
+silent_mode = discrete_input(7, description="Silent mode active")
+```
 
 ### Input registers (FC04, read-only)
 
