@@ -22,7 +22,7 @@ wheels = [
 
 [[package]]
 name = "lg-heatpump-modbus"
-version = "0.0.0b"
+version = "0.0.0c"
 source = { editable = "." }
 dependencies = [
     { name = "modbus-connection" },
