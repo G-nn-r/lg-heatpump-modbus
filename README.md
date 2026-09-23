@@ -123,6 +123,19 @@ those that failed, so one unanswered block does not take the rest with it.
 
 ## Register map
 
+The address range of Modbus is very large and divided into multiple sections called Function Code (FC). Each FC has its own address space at the beginning of the address.
+
+The FCs are either written as hexadecimal (0x01, 0x02, …) or as FC01, FC02, … in the documentation.
+
+Modbus is defined to have four kinds of tables:
+
+| Modbus Table   | Data Size | Reading FC | Writing FC    |
+|:---------------|:----------|:-----------|---------------|
+| Coil           | 1-bit     | 0x01       | 0x05 / 0x0F   |
+| Discrete Input | 1-bit     | 0x02       | no, read-only |
+| Holding        | 16-bit    | 0x03       | 0x06 / 0x10   |
+| Input          | 16-bit    | 0x04       | no, read-only |
+
 Addresses are **protocol addresses**: input register 1 of the manufacturer
 documentation is address 0 here.
 

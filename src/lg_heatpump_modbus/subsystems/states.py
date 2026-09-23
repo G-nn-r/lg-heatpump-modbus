@@ -6,7 +6,7 @@ from ..data_model import LgComponent, discrete_input
 
 
 class States(LgComponent):
-    """Pump, heater, compressor and fault flags, read in one block."""
+    """Pump, heater, compressor and fault flags, read in one block from discrete input (0x02)."""
 
     discrete_ranges = ((0, 16),)
 

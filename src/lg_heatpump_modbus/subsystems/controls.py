@@ -1,7 +1,9 @@
-"""Setpoints and operating modes (holding registers).
+"""Setpoints and operating modes (holding registers: read 0x03, single-write 0x06, multi-write 0x10).
 
 These are the values a controller writes. Reading them back is how the heat
 pump reports what it is currently configured to do.
+
+Some manuals have the address tables listed as input registers (0x04), that is wrong, those would be read-only.
 """
 
 from __future__ import annotations

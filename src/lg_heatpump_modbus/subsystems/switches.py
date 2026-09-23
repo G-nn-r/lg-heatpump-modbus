@@ -1,4 +1,4 @@
-"""On/off commands the controller accepts (coils, FC01/FC05)."""
+"""On/off commands the controller accepts (coils: read 0x01, single-write 0x05, multi-write 0x0F)."""
 
 from __future__ import annotations
 

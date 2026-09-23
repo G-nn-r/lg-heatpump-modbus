@@ -1,7 +1,10 @@
-"""Physical measurements the outdoor and indoor units report (input registers).
+"""Physical measurements the outdoor and indoor units report (input registers, 0x04).
 
 Every value here is read-only: input registers cannot be written. Addresses are
 the protocol addresses, i.e. input register 1 of the documentation is address 0.
+
+Some manuals have the address tables listed as holding registers (0x03), which is wrong, those would be read & write.
+See also here: https://www.yourwizblog.com/blog/2022/02/20/therma-v-modbus-information/
 """
 
 from __future__ import annotations
