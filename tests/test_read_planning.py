@@ -21,7 +21,7 @@ async def test_full_poll_is_seven_block_reads(
         (event.register_type, event.address, event.count) for event in unit.read_events
     ]
     assert blocks == [
-        ("input", 9998, 1),  # identity, read once at setup
+        ("input", 9997, 2),  # identity block: product group + device info
         ("input", 0, 13),  # the first contiguous measurement block
         ("input", 16, 1),  # the isolated liquid-pipe reading
         ("input", 18, 7),  # the remaining contiguous diagnostics block
@@ -37,7 +37,7 @@ async def test_identity_is_read_once(pump: LgHeatPump, unit: MockModbusUnit) -> 
 
     await pump.async_update()
 
-    assert not [event for event in unit.read_events if event.address == 9998]
+    assert not [event for event in unit.read_events if event.address == 9997]
 
 
 async def test_no_block_exceeds_the_modbus_ceiling(

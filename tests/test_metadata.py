@@ -75,6 +75,9 @@ def test_raw_metadata_has_no_number_block(pump: LgHeatPump) -> None:
     assert metadata.address == 9998
     assert metadata.number is None
 
+    group_metadata = pump.info.require_metadata_for("product_group")
+    assert group_metadata.address == 9997
+
 
 def test_every_declared_field_carries_metadata(pump: LgHeatPump) -> None:
     for component in pump.components:

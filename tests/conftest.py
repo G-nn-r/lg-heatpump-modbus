@@ -41,6 +41,7 @@ INPUT_REGISTERS: dict[int, int] = {
     22: 28,  # high_pressure -> 28 bar
     23: 7,  # low_pressure -> 7 bar
     24: 62,  # compressor_frequency -> 62 Hz -> 3720 rpm
+    9997: 0x0080,  # product_group -> VRF? family code / 0x8X group
     9998: 0x1A2B,  # product_info
 }
 

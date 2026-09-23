@@ -126,8 +126,9 @@ async def test_device_information(pump: LgHeatPump) -> None:
     await pump.info.async_update()
 
     assert pump.info.manufacturer == "LG"
+    assert pump.info.product_group == 0x80
     assert pump.info.product_info == 0x1A2B
-    assert pump.info.product_code == "0x1A2B"
+    assert pump.info.product_code == "0x0080"
 
 
 async def test_unknown_enum_code_decodes_to_none(
