@@ -102,7 +102,10 @@ class Sensors(LgComponent):
     water_outlet_temperature_circuit_2 = temperature(
         9, description="Water temperature leaving circuit 2"
     )
-    """Water outlet temperature of circuit 2."""
+    """
+    Water outlet temperature of circuit 2.
+    Circuit 2 is cooler than circuit 1, it is mixing hot water (water_outlet_temperature) with cold water. 
+    """
 
     # TODO verify
     # G-nn-r gets always -64.6 °C, is this the code for "not available"?
@@ -223,6 +226,14 @@ class Sensors(LgComponent):
         return frequency * SECONDS_PER_MINUTE
 
     @property
+    def water_outlet_temperature_circuit_1(self) -> float | None:
+        """
+        Return the water outlet temperature of circuit 1.
+        Circuit 1 is the primary,nn  unmixed circuit, so this value is just an alias to water_outlet_temperature.
+        """
+        return self.water_outlet_temperature
+
+    @property
     def water_temperature_difference(self) -> float | None:
         """Return the spread between the water outlet and inlet, in kelvin."""
         outlet = self.water_outlet_temperature
@@ -230,3 +241,12 @@ class Sensors(LgComponent):
         if outlet is None or inlet is None:
             return None
         return round(outlet - inlet, 1)
+
+    @property
+    def water_temperature_drop_circuit_2(self) -> float | None:
+        """Return the temperature drop from circuit 1 to the mixed circuit 2 outlet."""
+        outlet = self.water_outlet_temperature
+        mixed = self.water_outlet_temperature_circuit_2
+        if outlet is None or mixed is None:
+            return None
+        return round(outlet - mixed, 1)

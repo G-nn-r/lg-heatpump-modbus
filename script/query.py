@@ -84,12 +84,16 @@ def _print_derived(pump: LgHeatPump) -> None:
     """Print the values the library derives from several registers."""
     print()
     print("Derived")
-    print(f"  compressor speed          {_fmt(pump.sensors.compressor_speed)} rpm")
+    print(f"  compressor speed                    {_fmt(pump.sensors.compressor_speed)} rpm")
     print(
-        "  water temperature spread  "
+        "  water temperature spread            "
         f"{_fmt(pump.sensors.water_temperature_difference)} K"
     )
-    print(f"  backup heater steps       {_fmt(pump.states.backup_heater_steps)}")
+    print(
+        "  temperature drop circuit 2         "
+        f"{_fmt(pump.sensors.water_temperature_drop_circuit_2)} K"
+    )
+    print(f"  backup heater steps                 {_fmt(pump.states.backup_heater_steps)}")
 
 
 def _fmt(value: object) -> str:
@@ -133,6 +137,7 @@ def _snapshot(
         "derived": {
             "compressor_speed": pump.sensors.compressor_speed,
             "water_temperature_difference": pump.sensors.water_temperature_difference,
+            "water_temperature_drop_circuit_2": pump.sensors.water_temperature_drop_circuit_2,
             "backup_heater_steps": pump.states.backup_heater_steps,
         },
     }
