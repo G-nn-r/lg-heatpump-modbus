@@ -63,6 +63,8 @@ COILS: dict[int, bool] = {
     1: True,  # dhw
     2: False,  # silent_mode
     3: False,  # dhw_disinfection
+    4: False,  # emergency_stop
+    5: False,  # trigger_emergency_operation
 }
 
 DISCRETE_INPUTS: dict[int, bool] = {

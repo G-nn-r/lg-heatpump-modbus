@@ -61,6 +61,8 @@ async def test_write_control_method(pump: LgHeatPump, unit: MockModbusUnit) -> N
         ("set_dhw", 1),
         ("set_silent_mode", 2),
         ("set_dhw_disinfection", 3),
+        ("set_emergency_stop", 4),
+        ("set_trigger_emergency_operation", 5),
     ],
 )
 async def test_write_coils(
@@ -154,6 +156,8 @@ async def test_writable_datapoints_are_declared(pump: LgHeatPump) -> None:
         "dhw",
         "silent_mode",
         "dhw_disinfection",
+        "emergency_stop",
+        "trigger_emergency_operation",
     )
     assert pump.sensors.writable_datapoints == ()
     assert pump.states.writable_datapoints == ()

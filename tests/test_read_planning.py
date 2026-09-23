@@ -27,7 +27,7 @@ async def test_full_poll_is_seven_block_reads(
         ("input", 18, 7),  # the remaining contiguous diagnostics block
         ("discrete_input", 0, 17),  # every status flag
         ("holding", 0, 10),  # every setpoint
-        ("coil", 0, 4),  # every command
+        ("coil", 0, 6),  # every command
     ]
 
 

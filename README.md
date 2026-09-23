@@ -119,7 +119,7 @@ those that failed, so one unanswered block does not take the rest with it.
 | `pump.sensors` | input registers | Temperatures, pressures, flow rate, compressor frequency, error code, energy state |
 | `pump.states` | discrete inputs | Pump, compressor, heater, defrost and fault flags |
 | `pump.controls` | holding registers | Operation mode, control method, water/room/hot-water setpoints, auto-mode shift |
-| `pump.switches` | coils | Power, hot water, silent mode, disinfection |
+| `pump.switches` | coils | Power, hot water, silent mode, disinfection, emergency stop |
 
 ## Register map
 
@@ -208,6 +208,8 @@ across the heat exchanger.
 | 1 | `dhw` |
 | 2 | `silent_mode` |
 | 3 | `dhw_disinfection` |
+| 4 | `emergency_stop` |
+| 5 | `trigger_emergency_operation` |
 
 ### Discrete inputs (FC02, read-only)
 
