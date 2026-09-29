@@ -86,6 +86,10 @@ def _print_derived(pump: LgHeatPump) -> None:
     print("Derived")
     print(f"  compressor speed                    {_fmt(pump.sensors.compressor_speed)} rpm")
     print(
+        "  water outlet temperature circuit 1  "
+        f"{_fmt(pump.water_outlet_temperature_circuit_1)} °C"
+    )
+    print(
         "  water temperature spread            "
         f"{_fmt(pump.sensors.water_temperature_difference)} K"
     )
@@ -136,6 +140,7 @@ def _snapshot(
         },
         "derived": {
             "compressor_speed": pump.sensors.compressor_speed,
+            "water_outlet_temperature_circuit_1": pump.water_outlet_temperature_circuit_1,
             "water_temperature_difference": pump.sensors.water_temperature_difference,
             "water_temperature_drop_circuit_2": pump.sensors.water_temperature_drop_circuit_2,
             "backup_heater_steps": pump.states.backup_heater_steps,

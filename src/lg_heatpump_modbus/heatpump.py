@@ -88,6 +88,17 @@ class LgHeatPump:
         return ("info", *READING_COMPONENTS, *SETTING_COMPONENTS)
 
     @property
+    def water_outlet_temperature_circuit_1(self) -> float | None:
+        """
+        Return the water outlet temperature of circuit 1.
+
+        Circuit 1 is the primary, unmixed circuit, so this value is normally just an alias to
+        ``sensors.water_outlet_temperature``. While the heat pump is heating domestic hot water,
+        that shared sensor reflects the DHW loop instead, so this returns ``None`` in that case.
+        """
+        return None if self.states.dhw_heating else self.sensors.water_outlet_temperature
+
+    @property
     def manufacturer(self) -> str:
         """Return the manufacturer name."""
         return self.info.manufacturer

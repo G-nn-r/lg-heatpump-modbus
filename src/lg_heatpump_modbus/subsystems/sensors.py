@@ -226,14 +226,6 @@ class Sensors(LgComponent):
         return frequency * SECONDS_PER_MINUTE
 
     @property
-    def water_outlet_temperature_circuit_1(self) -> float | None:
-        """
-        Return the water outlet temperature of circuit 1.
-        Circuit 1 is the primary,nn  unmixed circuit, so this value is just an alias to water_outlet_temperature.
-        """
-        return self.water_outlet_temperature
-
-    @property
     def water_temperature_difference(self) -> float | None:
         """Return the spread between the water outlet and inlet, in kelvin."""
         outlet = self.water_outlet_temperature

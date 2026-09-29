@@ -59,7 +59,7 @@ async def test_sensor_enum_and_derived_values(pump: LgHeatPump) -> None:
     assert pump.sensors.odu_operation_cycle is OduOperationCycle.HEATING
     assert pump.sensors.energy_state is EnergyState.NORMAL
     assert pump.sensors.compressor_speed == 62 * 60
-    assert pump.sensors.water_outlet_temperature_circuit_1 == 35.2
+    assert pump.water_outlet_temperature_circuit_1 == 35.2
     assert pump.sensors.water_temperature_drop_circuit_2 == 6.4
     assert pump.sensors.water_temperature_difference == 3.7
 
@@ -68,10 +68,21 @@ async def test_derived_values_are_none_before_the_first_read(
     pump: LgHeatPump,
 ) -> None:
     assert pump.sensors.compressor_speed is None
-    assert pump.sensors.water_outlet_temperature_circuit_1 is None
+    assert pump.water_outlet_temperature_circuit_1 is None
     assert pump.sensors.water_temperature_drop_circuit_2 is None
     assert pump.sensors.water_temperature_difference is None
     assert pump.states.backup_heater_steps is None
+
+
+async def test_water_outlet_temperature_circuit_1_is_none_while_heating_dhw(
+    pump: LgHeatPump, unit: MockModbusUnit
+) -> None:
+    unit.discrete_inputs[5] = True  # dhw_heating
+
+    await pump.sensors.async_update()
+    await pump.states.async_update()
+
+    assert pump.water_outlet_temperature_circuit_1 is None
 
 
 @pytest.mark.parametrize(
