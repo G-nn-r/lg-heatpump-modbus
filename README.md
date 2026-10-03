@@ -185,6 +185,11 @@ silent_mode = discrete_input(7, description="Silent mode active")
 `compressor_frequency`, and `sensors.water_temperature_difference` the spread
 across the heat exchanger.
 
+`solar_collector_temperature` reads as `None` when no solar collector is
+fitted: the heat pump reports a fixed dummy value of 300.0 °C instead of
+refusing the read, and that sentinel is masked. Set `pump.debug = True` to
+see the raw 300.0 °C reading instead, e.g. while diagnosing a device.
+
 ### Holding registers (FC03 read, FC06 write)
 
 | Address | Datapoint | Scale | Unit | Writable |
@@ -316,6 +321,8 @@ Set up the library and run `script/query.py` against your heat pump. Parameters 
 Directly report the JSON output, as well as any unexpected values or errors.
 
 Occasional `Response timeout`s are expected when the heat pump is still connected to another Modbus device (e.g., legacy Home Assistant integration). If you see a timeout, wait a few seconds and try again.
+
+Add `--debug` to see raw sentinel values (e.g. `solar_collector_temperature`'s 300 °C no-sensor reading) instead of them being masked to `None` — handy when a reported value looks suspicious and you want to confirm what the heat pump actually sent.
 
 #### 3b. Use the library from a Python interpreter
 

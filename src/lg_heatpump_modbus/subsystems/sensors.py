@@ -16,12 +16,17 @@ from ..data_model import (
     LgComponent,
     enum_value,
     gauge,
+    hide_sentinel,
     integer,
     temperature,
 )
 from ..enums import EnergyState, OduOperationCycle
 
 SECONDS_PER_MINUTE = 60
+
+#: Dummy reading reported on ``solar_collector_temperature`` when no solar
+#: collector is fitted, in place of refusing the read.
+NO_SOLAR_COLLECTOR_TEMPERATURE = 300.0
 
 
 class Sensors(LgComponent):
@@ -71,12 +76,19 @@ class Sensors(LgComponent):
     In the LG ThinQ App, this can be found under Warmwasser -> Heißwassertemperatur
     """
 
-    # TODO verify (G-nn-r has solar_pump=False, --> solar_collector_temperature is always 300.0 °C)
-    # TODO decide whether this should be exposed when solar_pump=False. At least in HA, it should be unavailable
-    solar_collector_temperature = temperature(
-        6, description="Solar collector temperature"
+    # TODO verify non-sentinel values
+    # verified by G-nn-r: no solar pump fitted -> always reads the 300 °C sentinel
+    solar_collector_temperature = hide_sentinel(
+        temperature(6, description="Solar collector temperature"),
+        sentinel=NO_SOLAR_COLLECTOR_TEMPERATURE,
     )
-    """Solar collector temperature."""
+    """
+    Solar collector temperature.
+    When no solar collector is fitted, the heat pump reports a fixed dummy value of
+    300.0 °C instead of refusing the read; this decodes as ``None`` in that case.
+    Set the component's (or the ``LgHeatPump``'s) ``debug`` attribute to see the
+    raw 300.0 °C reading instead.
+    """
 
     # TODO verify
     # this is always either 20.5, 21.0, or 21.5 for G-nn-r, but does he have a sensor? This might be either the control panel ("hp_temp_technikraum" in bastis integration) or the optional accessory PQRSTA0

@@ -53,6 +53,22 @@ async def test_sensor_values(pump: LgHeatPump, attribute: str, expected: float) 
     assert getattr(pump.sensors, attribute) == expected
 
 
+async def test_solar_collector_temperature_hides_the_no_sensor_sentinel(
+    pump: LgHeatPump, unit: MockModbusUnit
+) -> None:
+    unit.input[6] = 3000  # the 300.0 °C reading reported with no solar collector
+
+    await pump.sensors.async_update()
+
+    assert pump.sensors.solar_collector_temperature is None
+
+    pump.debug = True
+    assert pump.sensors.solar_collector_temperature == 300.0
+
+    pump.debug = False
+    assert pump.sensors.solar_collector_temperature is None
+
+
 async def test_sensor_enum_and_derived_values(pump: LgHeatPump) -> None:
     await pump.sensors.async_update()
 

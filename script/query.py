@@ -70,6 +70,14 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=None,
         help="Directory for one JSON snapshot per query; omit to disable dumping.",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help=(
+            "Show raw sentinel values (e.g. solar_collector_temperature's 300 °C"
+            " no-sensor reading) instead of masking them to None."
+        ),
+    )
     return parser.parse_args(argv)
 
 
@@ -131,6 +139,7 @@ def _snapshot(
         ),
         "model": args.model,
         "unit_id": args.unit,
+        "debug": args.debug,
         "elapsed_ms": round(elapsed_ms, 3),
         "modbus_reads": modbus_reads,
         "failed": {name: str(error) for name, error in failed.items()},
@@ -173,7 +182,7 @@ async def _run(args: argparse.Namespace) -> int:
 
     counting = CountingUnit(connection.for_unit(args.unit))
     try:
-        pump = LgHeatPump(counting, model=args.model)
+        pump = LgHeatPump(counting, model=args.model, debug=args.debug)
         start = time.monotonic()
         report = await pump.async_update()
         elapsed = time.monotonic() - start

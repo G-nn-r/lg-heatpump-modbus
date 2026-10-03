@@ -42,6 +42,13 @@ def test_defaults(query: ModuleType) -> None:
     assert args.unit == 1
     assert args.model == "therma_v"
     assert args.json_dir is None
+    assert args.debug is False
+
+
+def test_debug_flag_can_be_set(query: ModuleType) -> None:
+    args = query._parse_args(["192.168.1.50", "--debug"])
+
+    assert args.debug is True
 
 
 def test_unit_and_model_can_be_chosen(query: ModuleType) -> None:
@@ -110,6 +117,7 @@ async def test_json_dump_snapshot(
     assert path is not None and path.parent == tmp_path
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["model"] == "therma_v"
+    assert payload["debug"] is False
     assert payload["components"]["sensors"]["outdoor_temperature"] == -4.2
     assert payload["derived"]["compressor_speed"] == 3720
 
