@@ -24,16 +24,14 @@ from ..enums import EnergyState, OduOperationCycle
 
 SECONDS_PER_MINUTE = 60
 
-#: Dummy reading reported on ``solar_collector_temperature`` when no solar
-#: collector is fitted, in place of refusing the read.
-NO_SOLAR_COLLECTOR_TEMPERATURE = 300.0
-
+NO_SOLAR_COLLECTOR_TEMPERATURE = 300.0  # Dummy reading for `solar_collector_temperature` without fitted solar collector
+NO_WATER_PRESSURE = 0.0  # Dummy reading when there's no water pressure sensor fitted (typically for R32)
 
 class Sensors(LgComponent):
     """Temperatures, pressures and running state, read in one block."""
 
     register_space = "input"
-    register_ranges = ((0, 12), (16, 16), (18, 24))
+    register_ranges = ((0, 13), (16, 16), (18, 24))
 
     # TODO verify
     # verified by G-nn-r: 0
@@ -137,7 +135,17 @@ class Sensors(LgComponent):
     outdoor_temperature = temperature(12, description="Outdoor air temperature")
     """Outdoor air temperature."""
 
-    # TODO is there water pressure on address 13?
+    # TODO verify non-sentinel values
+    water_pressure = hide_sentinel(
+        gauge(
+        13, description="Water pressure", scale=0.1, unit="BAR", signed=False,
+        ),
+        sentinel=NO_WATER_PRESSURE,
+    )
+    """
+    Water pressure, only available for R290 units.
+    """
+
 
     """
     TODO reorder heat gas temperatures: 
