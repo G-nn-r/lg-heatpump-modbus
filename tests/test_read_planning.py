@@ -22,7 +22,7 @@ async def test_full_poll_is_seven_block_reads(
     ]
     assert blocks == [
         ("input", 9997, 2),  # identity block: product group + device info
-        ("input", 0, 13),  # the first contiguous measurement block
+        ("input", 0, 14),  # the first contiguous measurement block
         ("input", 16, 1),  # the isolated liquid-pipe reading
         ("input", 18, 7),  # the remaining contiguous diagnostics block
         ("discrete_input", 0, 17),  # every status flag
