@@ -165,38 +165,36 @@ class Sensors(LgComponent):
     """
 
     # TODO verify
-    # This is probably wrongly scaled? Expected values are 25-65 °C for R32, G-nn-r reports 108-400 °C with compressor off; 280-550 °C with compressor running (increasing with compressor frequency)
+    # Rescaled recently. Expected values are 25-65 °C for R32, G-nn-r reports 11-40 °C with compressor off; 28-55 °C with compressor running (increasing with compressor frequency)
     liquid_pipe_temperature = temperature(
-        16, scale=1, digits=0, description="Refrigerant liquid pipe temperature"
+        16, scale=0.1, digits=0, description="Refrigerant liquid pipe temperature"
     )
     """Refrigerant liquid pipe temperature."""
 
     # TODO verify
-    # This might be wrongly scaled? Expected values are -15 to +15 °C for R32, G-nn-r reports 80-300 °C without compressor running, 62-120 °C with compressor running
-    # wrong scaling by factor of 10? See here, l. 154/187: https://github.com/basti242/homeassistant_lg_therma_v_modbus/pull/49/changes
+    # Rescaled recently. Expected values are -15 to +15 °C for R32, G-nn-r reports 8-30 °C without compressor running, 6-12 °C with compressor running
     suction_temperature = temperature(
-        18, scale=1, digits=0, description="Compressor suction temperature"
+        18, scale=0.1, digits=0, description="Compressor suction temperature"
     )
     """Compressor suction temperature."""
 
     # TODO verify
-    # This might be wrongly scaled? Expected values for CDT are 80-100°C (at max 65-110°C), G-nn-r reports 190-820
+    # Rescaled recently. Expected values for CDT are 80-100°C (at max 65-110°C), G-nn-r reports 19-82
     # "R32's critical temperature is 78.1°C. Above this point, R32 cannot exist as a distinct liquid or vapor—it becomes a supercritical fluid, and the entire refrigeration cycle breaks down."
     # system could also be designed to work in supercritical range, this topic is a rabbit hole
-    # Wrong scaling by a factor of 10? See here, l. 162/198: https://github.com/basti242/homeassistant_lg_therma_v_modbus/pull/49/changesö
-    # Or here: https://www.photovoltaikforum.com/thread/241473-bugs-und-tweaks-f%C3%BCr-die-lg-therma-v-r32/?postID=4144834#post4144834
     discharge_temperature = temperature(
-        19, scale=1, digits=0, description="Compressor discharge temperature"
+        19, scale=0.1, digits=0, description="Compressor discharge temperature"
     )
     """Compressor discharge temperature."""
     # formerly hp_temp_heatgas "Heißgastemperatur"
 
     # TODO verify
-    # G-nn-r gets 10.0 to 25.7 °C without compressor running, 5.2-13.3 with compressor running (the higher the RPM, the lower the temperature), seems reasonable
+    # Rescaled recently.
+    # G-nn-r gets 10.0 to 25.7 °C (or without compressor running, 5.2-13.3 with compressor running (the higher the RPM, the lower the temperature), seems reasonable
     # expected values are between -5 °C and 15 °C in moderate climate, up to -25 °C at extreme cold (-10 °C ambient)
-    # scaling seems to be right, more analysis on which value is actually correct - this or evaporator_outlet_temperature  (a bit more likely)
+    # Was the rescaling really right? More analysis on which value is actually correct - this or evaporator_outlet_temperature  (a bit more likely)
     evaporator_inlet_temperature = temperature(
-        20, description="Refrigerant temperature entering the evaporator"
+        20, scale=0.1, digits=0, description="Refrigerant temperature entering the evaporator"
     )
     """Evaporator inlet temperature."""
 
@@ -204,7 +202,7 @@ class Sensors(LgComponent):
     # this is always equal to evaporator_inlet_temperature for G-nn-r, should only be the case when the compressor is off (otherwise an indication for no refrigerant flow or some other malfunction)
     # should be 5-15 K higher than evaporator_inlet_temperature and similar to suction_temperature, to be analyzed
     evaporator_outlet_temperature = temperature(
-        21, description="Refrigerant temperature leaving the evaporator"
+        21, scale=0.1, digits=0, description="Refrigerant temperature leaving the evaporator"
     )
     """Evaporator outlet temperature."""
 

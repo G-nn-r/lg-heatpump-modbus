@@ -33,9 +33,9 @@ INPUT_REGISTERS: dict[int, int] = {
     10: 209,  # room_air_temperature_circuit_2 -> 20.9 °C
     11: 2,  # energy_state -> NORMAL
     12: 0x10000 - 42,  # outdoor_temperature -> -4.2 °C (signed)
-    16: 12,  # liquid_pipe_temperature -> 12 °C
-    18: 7,  # suction_temperature -> 7 °C
-    19: 76,  # discharge_temperature -> 76 °C
+    16: 120,  # liquid_pipe_temperature -> 12.0 °C (raw value scaled by 0.1)
+    18: 70,  # suction_temperature -> 7.0 °C (raw value scaled by 0.1)
+    19: 760,  # discharge_temperature -> 76.0 °C (raw value scaled by 0.1)
     20: 0x10000 - 55,  # evaporator_inlet_temperature -> -5.5 °C
     21: 0x10000 - 21,  # evaporator_outlet_temperature -> -2.1 °C
     22: 28,  # high_pressure -> 28 bar
