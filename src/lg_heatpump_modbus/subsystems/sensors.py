@@ -207,28 +207,25 @@ class Sensors(LgComponent):
     """Evaporator outlet temperature."""
 
     # TODO verify
-    # G-nn-r gets values of roughly 1000 to 1400 bar when the compressor is off and roughly 1800 to 2500 bar when the compressor is on, values go up with compressor frequency, up to 3775
-    # this seems to be a scaling issue, probably factor of 100 wrong --> 11-14 bar / 18-25 bar would be reasonable
+    # G-nn-r gets values of roughly 10 to 14 bar when the compressor is off and roughly 18 to 25 bar when the compressor is on, values go up with compressor frequency, up to 37.75
     # expected are 20-35 bar for cold ambient, 35-50 bar for moderate ambient, 40-60 bar for DHW on warm days. Values should be below critical pressure (73.8 bar)
-    # so the pressure is rather too low, maybe a more complex scaling factor is involved.
     # here mBar is mentioned, that would be too low: https://gathering.tweakers.net/forum/list_message/76531486#76531486
     # talk to basti242 about this, the list mentions °C: https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/LG-Register-documentation
     # TODO refactor to high_pressure_refrigerant or refrigerant_high_pressure?
-    high_pressure = integer(
-        22, signed=False, unit=BAR, description="Condenser (high side) pressure"
+    high_pressure = gauge(
+        22, 0.01, signed=False, unit=BAR, description="Condenser (high side) pressure"
     )
     """Condenser (high side) pressure."""
 
     # TODO verify
-    # G-nn-r gets values of roughly 1040 to 1320 when the compressor is off and roughly 1200 to 1400 bar when the compressor is on (low speed: 900 or 1100; higher speed: slightly increasing 880->970),
-    # this seems to be at least a scaling issue, probably factor of 100 wrong --> 11-12 bar / 12-14 bar would be MORE reasonable
+    # G-nn-r gets values of roughly 10.40 to 13.20 when the compressor is off and roughly 12 to 14 bar when the compressor is on (low speed: 9 or 11; higher speed: slightly increasing 8.8->9.7),
     # expected: 8-12 bar idle, 6-12 bar running
     # but the difference to high_pressure should be near-zero for compressor off, low for low compressor speed and high for high compressor speed, which is not the case for G-nn-r's readings
     # here mBar is mentioned, that would be too low: https://gathering.tweakers.net/forum/list_message/76531486#76531486
     # talk to basti242 about this, the list mentions °C: https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/LG-Register-documentation
     # TODO refactor to low_pressure_refrigerant or refrigerant_low_pressure?
-    low_pressure = integer(
-        23, signed=False, unit=BAR, description="Evaporator (low side) pressure"
+    low_pressure = gauge(
+        23, 0.01, signed=False, unit=BAR, description="Evaporator (low side) pressure"
     )
     """Evaporator (low side) pressure."""
 

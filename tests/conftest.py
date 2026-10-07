@@ -38,8 +38,8 @@ INPUT_REGISTERS: dict[int, int] = {
     19: 760,  # discharge_temperature -> 76.0 °C (raw value scaled by 0.1)
     20: 0x10000 - 55,  # evaporator_inlet_temperature -> -5.5 °C
     21: 0x10000 - 21,  # evaporator_outlet_temperature -> -2.1 °C
-    22: 28,  # high_pressure -> 28 bar
-    23: 7,  # low_pressure -> 7 bar
+    22: 2800,  # high_pressure -> 28.0 bar (raw value scaled by 0.01)
+    23: 700,  # low_pressure -> 7.0 bar (raw value scaled by 0.01)
     24: 62,  # compressor_frequency -> 62 Hz -> 3720 rpm
     9997: 0x0080,  # product_group -> VRF? family code / 0x8X group
     9998: 0x1A2B,  # product_info
