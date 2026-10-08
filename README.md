@@ -176,8 +176,8 @@ silent_mode = discrete_input(7, description="Silent mode active")
 | 19 | `discharge_temperature` | 1 | °C |
 | 20 | `evaporator_inlet_temperature` | 0.1 | °C |
 | 21 | `evaporator_outlet_temperature` | 0.1 | °C |
-| 22 | `high_pressure` | 1 | bar |
-| 23 | `low_pressure` | 1 | bar |
+| 22 | `refrigerant_high_pressure` | 1 | bar |
+| 23 | `refrigerant_low_pressure` | 1 | bar |
 | 24 | `compressor_frequency` | 1 | Hz |
 | 9998 | `product_info` | raw | |
 

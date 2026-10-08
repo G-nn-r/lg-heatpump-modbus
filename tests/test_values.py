@@ -42,8 +42,8 @@ async def test_update_refreshes_every_component(pump: LgHeatPump) -> None:
         ("discharge_temperature", 76.0),
         ("evaporator_inlet_temperature", -5.5),
         ("evaporator_outlet_temperature", -2.1),
-        ("high_pressure", 28),
-        ("low_pressure", 7),
+        ("refrigerant_high_pressure", 28),
+        ("refrigerant_low_pressure", 7),
         ("compressor_frequency", 62),
     ],
 )

@@ -92,7 +92,7 @@ def test_a_new_variant_needs_no_code(unit: object) -> None:
     pump = LgHeatPump(unit, model=variant)  # type: ignore[arg-type]
 
     assert pump.model_name == "OEM variant"
-    assert pump.serves("high_pressure") is False
+    assert pump.serves("refrigerant_high_pressure") is False
     assert pump.serves("water_outlet_temperature") is True
 
 

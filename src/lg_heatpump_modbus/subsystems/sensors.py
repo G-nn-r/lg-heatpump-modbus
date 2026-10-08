@@ -211,8 +211,7 @@ class Sensors(LgComponent):
     # expected are 20-35 bar for cold ambient, 35-50 bar for moderate ambient, 40-60 bar for DHW on warm days. Values should be below critical pressure (73.8 bar)
     # here mBar is mentioned, that would be too low: https://gathering.tweakers.net/forum/list_message/76531486#76531486
     # talk to basti242 about this, the list mentions °C: https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/LG-Register-documentation
-    # TODO refactor to high_pressure_refrigerant or refrigerant_high_pressure?
-    high_pressure = gauge(
+    refrigerant_high_pressure = gauge(
         22, 0.01, signed=False, unit=BAR, description="Condenser (high side) pressure"
     )
     """Condenser (high side) pressure."""
@@ -220,16 +219,14 @@ class Sensors(LgComponent):
     # TODO verify
     # G-nn-r gets values of roughly 10.40 to 13.20 when the compressor is off and roughly 12 to 14 bar when the compressor is on (low speed: 9 or 11; higher speed: slightly increasing 8.8->9.7),
     # expected: 8-12 bar idle, 6-12 bar running
-    # but the difference to high_pressure should be near-zero for compressor off, low for low compressor speed and high for high compressor speed, which is not the case for G-nn-r's readings
+    # but the difference to refrigerant_high_pressure should be near-zero for compressor off, low for low compressor speed and high for high compressor speed, which is not the case for G-nn-r's readings
     # here mBar is mentioned, that would be too low: https://gathering.tweakers.net/forum/list_message/76531486#76531486
     # talk to basti242 about this, the list mentions °C: https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/LG-Register-documentation
-    # TODO refactor to low_pressure_refrigerant or refrigerant_low_pressure?
-    low_pressure = gauge(
+    refrigerant_low_pressure = gauge(
         23, 0.01, signed=False, unit=BAR, description="Evaporator (low side) pressure"
     )
     """Evaporator (low side) pressure."""
 
-    # TODO refactor to *_hz?
     # verified by G-nn-r: 0, 15, 27, 30, 34, 35, 37, 43, 45, 53, 54, 57, 60, 66. Maximum is expected at around ~50 Hz
     compressor_frequency = integer(
         24, signed=False, unit=HERTZ, description="Compressor rotation frequency"
@@ -237,7 +234,6 @@ class Sensors(LgComponent):
     """Compressor rotation frequency, in revolutions per second."""
 
     # verified by G-nn-r, deriving works as expected
-    # TODO refactor to *_rpm?
     @property
     def compressor_speed(self) -> int | None:
         """Return the compressor speed in revolutions per minute."""
