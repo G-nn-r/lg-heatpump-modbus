@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "lg-heatpump-modbus"
-version = "0.0.0e"
+version = "0.0.1"
 description = "Read and control LG heat pumps (Therma V and siblings) over Modbus."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -26,6 +26,7 @@ classifiers = [
 dependencies = [
     "modbus-connection>=4.8.1,<5",
     "tmodbus==0.6.2",
+    "twine==7.0.0",
 ]
 
 [project.optional-dependencies]
