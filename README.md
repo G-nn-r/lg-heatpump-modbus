@@ -52,8 +52,6 @@ This takes two steps:
 
 Both steps are explained in more detail [here](https://github.com/basti242/homeassistant_lg_therma_v_modbus/wiki/2.-How-to-install), you can skip the middle *Homeassistant* section. 
 
-> TODO: Explain setup in more detail
-
 ## Installation
 
 ```bash
@@ -73,7 +71,7 @@ pip install "lg-heatpump-modbus[cli]"
 import asyncio
 
 from modbus_connection import ModbusTcpParams
-from modbus_connection.tmodbus import ModbusConnection  # TODO this fails on Windows with Python 3.14 
+from modbus_connection.tmodbus import ModbusConnection 
 
 from lg_heatpump_modbus import LgHeatPump, OperationMode
 
