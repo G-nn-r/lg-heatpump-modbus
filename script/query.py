@@ -131,7 +131,7 @@ def _snapshot(
     """Return a JSON-serialisable snapshot of a single query."""
     return {
         "user_pseudonym": pbkdf2_hmac(
-            "sha256", f"{getuser().lower().strip()}|{sys.platform or 'unknown'}".encode("utf-8"),
+            "sha256", f"{getuser().lower().strip()}|{sys.platform or 'unknown'}".encode(),
             b"salt-lg-heatpump-modbus-library-asdf", 100000
         ).hex()[:32],
         "timestamp": datetime.now(UTC).isoformat(timespec="seconds").replace(
