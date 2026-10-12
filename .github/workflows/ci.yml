@@ -25,5 +25,15 @@ jobs:
       - name: Run tests
         run: uv run pytest
 
-      # TODO(#1): Add linting (ruff) once existing lint findings have been
-      # addressed. See https://github.com/G-nn-r/lg-heatpump-modbus/issues/1
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v3
+
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+
+      - name: Run ruff
+        run: uv run ruff check .
